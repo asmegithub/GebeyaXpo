@@ -39,6 +39,14 @@ export default function MoreFacts({}: Props) {
         whileInView="show"
         viewport={{ once: false, amount: 0.25 }}
         className="h-screen w-[85%] mx-auto"
+        style={{
+          backgroundImage: `url(${'/logo-08.png'})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          width: "100%",
+          height: "100vh",
+        }}
       >
         <Header lable={"More Facts About"} />
         <Header lable={"GebeyaXpo"} className="text-BlueLight" />
