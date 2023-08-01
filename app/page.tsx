@@ -1,9 +1,12 @@
-'use client'
+"use client";
 
-import { Hero } from "@/containers";
+import { Hero, VideoPlayer } from "@/containers";
 
 export default function Home() {
-  return <main>
-<Hero/>
-  </main>;
+  return (
+    <main>
+      <Hero />
+      <VideoPlayer />
+    </main>
+  );
 }

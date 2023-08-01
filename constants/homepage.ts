@@ -10,3 +10,7 @@ export const HeroData: HeroType = {
   imageUrlMob:"/heromob.png",
   backGroundImage:'/logo-08.png'
 };
+
+export const VideoData = {
+  videoId : "KKQb0YBF890"
+}
