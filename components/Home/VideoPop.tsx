@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState } from "react";
 import { CircularProgress } from "@mui/material";
 import YouTube from "react-youtube";
@@ -6,13 +8,12 @@ import { AnimatePresence, motion } from "framer-motion";
 interface VideoPopupProps {
   isOpen: boolean;
   videoId: string;
-  onRequestClose: () => void;
+  
 }
 
 const VideoPopup: React.FC<VideoPopupProps> = ({
   isOpen,
   videoId,
-  onRequestClose,
 }) => {
   const [isVideoReady, setIsVideoReady] = useState(false);
 

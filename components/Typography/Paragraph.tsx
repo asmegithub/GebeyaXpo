@@ -2,10 +2,10 @@ import React from "react";
 
 type Props = { lable: string; className?: string };
 
-export default function Header({ lable, className }: Props) {
+export default function Pargraph({ lable, className }: Props) {
   return (
     <h1
-      className={` text-3xl lg:text-5xl max-w-xs font-semibold ${
+      className={` text-sm lg:text-base max-w-md font-thin ${
         className ? className : "text-BlueDark"
       }`}
     >

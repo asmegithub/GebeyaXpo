@@ -12,18 +12,10 @@ const YourComponent: React.FC = () => {
     setIsPopupOpen(true);
   };
 
-  const handleClosePopup = () => {
-    setIsPopupOpen(false);
-  };
-
   return (
     <div className="relative w-full h-[80vh]  mb-20">
       {isPopupOpen ? (
-        <VideoPopup
-          isOpen={isPopupOpen}
-          videoId={videoId}
-          onRequestClose={handleClosePopup}
-        />
+        <VideoPopup isOpen={isPopupOpen} videoId={videoId} />
       ) : (
         <div className=" bg-BlueLighter">
           <img
