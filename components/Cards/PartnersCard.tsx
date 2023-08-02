@@ -19,11 +19,12 @@ export default function PartnersCard({
   return (
     <motion.div
       variants={slideIn("down")}
-      initial='hidden'
-      whileInView='show'
+      initial="hidden"
+      whileInView="show"
       className={` text-center w-[145px] md:w-[200px] h-[250px] border-[1px]  border-BlueLighter px-5 py-10 rounded-[15px] cursor-pointer ${
         index % 2 != 0 && index < 7 ? "mt-10" : ""
       }  ${index % 2 != 0 && index >= 7 ? "xl:-mt-8 mt-8" : ""} `}
+      viewport={{ once: true }}
     >
       <img
         src={logo}

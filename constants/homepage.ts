@@ -104,3 +104,14 @@ export const PartnersData = [
     partnerLevel: "Golden",
   },
 ];
+
+export const OfficeData = [
+  {
+    location: "Bole Rwanda,Addis Ababa",
+    phone: ["+2512345678", "+2512345678"],
+  },
+  {
+    location: "Bole Rwanda,Addis Ababa",
+    phone: ["+2512345678", "+2512345678"],
+  },
+];

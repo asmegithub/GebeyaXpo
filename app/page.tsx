@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  ContactUs,
   Hero,
   MoreFacts,
   Partners,
@@ -18,6 +19,7 @@ export default function Home() {
       <MoreFacts />
       <PhotoGallery />
       <Partners />
+      <ContactUs/>
     </main>
   );
 }
