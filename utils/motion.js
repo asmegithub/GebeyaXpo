@@ -114,7 +114,7 @@ export const FadeIn = (direction, type, delay, duration) => ({
   },
 });
 
-export const planetVariants = (direction) => ({
+export const PlanetVariants = (direction) => ({
   hidden: {
     x: direction === "left" ? "-100%" : "100%",
     rotate: 120,

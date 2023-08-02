@@ -7,6 +7,7 @@ import MoreCard from "./Cards/moreCard";
 import Header from "./Typography/Header";
 import Pargraph from "./Typography/Paragraph";
 import PhotoGalleryCard from "./Cards/PhotoGalleryCard";
+import PartnersCard from "./Cards/PartnersCard";
 
 export {
   AppButton,
@@ -18,4 +19,5 @@ export {
   MoreCard,
   MoreCardCircle,
   PhotoGalleryCard,
+  PartnersCard,
 };
