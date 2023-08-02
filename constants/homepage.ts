@@ -44,4 +44,4 @@ export const WhyExibitData = {
   ],
 };
 
-
+export const PhotoGalleryData = ["/image1.png", "/image2.png", "/image3.png",];
