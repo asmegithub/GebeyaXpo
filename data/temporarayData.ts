@@ -9,7 +9,7 @@ export let notification: Notification[] = [
     link: "",
     destionation: 1,
     seen: false,
-    date: "today, 4pm",
+    date: "1hr",
   },
   {
     id: 3,
@@ -20,7 +20,7 @@ export let notification: Notification[] = [
     link: "",
     destionation: 1,
     seen: false,
-    date: "yesterday, 10pm",
+    date: "2hr",
   },
   {
     id: 1,
@@ -31,7 +31,7 @@ export let notification: Notification[] = [
     link: "",
     destionation: 1,
     seen: true,
-    date: "12-10-2023",
+    date: "1d",
   },
 ];
 let ExhibitorsData: ExhibitorsDataType[] = [
