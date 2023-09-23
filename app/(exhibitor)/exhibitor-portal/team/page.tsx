@@ -5,6 +5,7 @@ import {
   AppForm,
   AppTeamAdderDesktop,
   AppTeamAdderMobile,
+  AppTeamEditor,
   AppTeamEditorDesktop,
   AppTeamEditorMobile,
   AppTeamLister,
@@ -19,8 +20,7 @@ import Typography from "@mui/joy/Typography";
 import { AppMenuItemContent } from "@/components";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiOutlineEdit } from "react-icons/ai";
-import {  Menu, MenuItem } from "@mui/material";
-
+import { Menu, MenuItem } from "@mui/material";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required().label("First name"),
@@ -29,6 +29,7 @@ const validationSchema = Yup.object().shape({
   jobTitle: Yup.string().required().label("Job title"),
   description: Yup.string().required().label("Description"),
   linkedinLink: Yup.string(),
+  image: Yup.string(),
 });
 
 const initialValues: FormikValues = {
@@ -38,6 +39,7 @@ const initialValues: FormikValues = {
   jobTitle: "",
   description: "",
   linkedinLink: "",
+  image: "",
 };
 
 const fields: Field[] = [
@@ -81,11 +83,13 @@ const page = () => {
   const { teams } = currentUser;
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [currentTeam, setCurrentTeam] = useState<Teams | null>(null);
+  const [editing, setEditing] = useState<boolean>(false);
+  const [adding, setAdding] = useState<boolean>(false);
 
   const open = Boolean(anchorEl);
 
   const { submitForm } = useAPI();
-  
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -113,7 +117,9 @@ const page = () => {
 
   const handleEdit = (team: Teams | null) => {
     if (team) {
-      setTeamEditorModal(true);
+      // setTeamEditorModal(true);
+      setEditing(true);
+      setAdding(false);
       setEditingTeam(team);
       handleClose();
     }
@@ -136,13 +142,16 @@ const page = () => {
           </div>
         </div>
       )}
-      <div className=" mt-32 lg:mt-20  ml-5 w-[85%] xs:w-[60%] lg:w-[70%] xl:w-[77%] px-2 mx-auto md:ml-[280px] xs:ml-[165px] mr-5 h-[80vh] overflow-y-auto ">
+      <div className=" mt-32 lg:mt-20  ml-5 w-[85%] xs:w-[65%] lg:w-[70%] xl:w-[77%] px-2 mx-auto md:ml-[280px] xs:ml-[165px] mr-5 h-[80vh] overflow-y-auto ">
         <div className=" flex justify-between sm:items-center mb-2 sm:flex-row flex-col w-[40%] sm:w-full ">
           <Typography level="h2">Teams</Typography>
           {!openModal && (
             <AppButton
               label="Add New Member"
-              handleAction={() => setOpenModal(true)}
+              handleAction={() => {
+                setEditing(false);
+                setAdding(true);
+              }}
             />
           )}
         </div>
@@ -151,21 +160,10 @@ const page = () => {
           onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
-          <AppTeamAdderDesktop
-            fields={fields}
-            openModal={openModal}
-            setOpenModal={setOpenModal}
-          />
           <AppTeamAdderMobile
             fields={fields}
             openModal={openModal}
             setOpenModal={setOpenModal}
-          />
-          <AppTeamEditorDesktop
-            fields={fields}
-            setOpenModal={setTeamEditorModal}
-            openModal={teamEditorModal}
-            initialValues={editingTeam}
           />
           <AppTeamEditorMobile
             fields={fields}
@@ -174,7 +172,26 @@ const page = () => {
             initialValues={editingTeam}
           />
 
-          {teams && <AppTeamLister teams={teams} openModal={handleClick} />}
+          <div className=" flex flex-col md:flex-row justify-between gap-10 ">
+            {teams && <AppTeamLister teams={teams} openModal={handleClick} />}
+            {editing && (
+              <AppTeamEditor
+                // @ts-ignore
+                team={editingTeam}
+                setEditing={setEditing}
+                fields={fields}
+                // @ts-ignore
+                initialValues={editingTeam}
+              />
+            )}
+            {adding && (
+              <AppTeamAdderDesktop
+                fields={fields}
+                setEditing={setAdding}
+                initialValues={initialValues}
+              />
+            )}
+          </div>
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}

@@ -3,10 +3,6 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { FormikValues, useFormikContext } from "formik";
 import { useExhibitorPortalContext } from "@/context/ExhibitorPortalContext";
 
-type Props = {
-  setOpenModal: Dispatch<SetStateAction<boolean>>;
-};
-
 const colors: string[] = [
   "bg-indigo-500 !important",
   "bg-orange-400 ",
@@ -38,14 +34,9 @@ const getId = (team: FormikValues): string => {
   return id;
 };
 
-const useTeamAdder = ({ setOpenModal }: Props) => {
-  const {
-    dirty,
-    isValid,
-    values,
-    handleReset,
-    submitForm,
-  } = useFormikContext<FormikValues>();
+const useTeamAdder = () => {
+  const { dirty, isValid, values, handleReset, submitForm } =
+    useFormikContext<FormikValues>();
   const { currentUser, setCurrentUser } = useExhibitorPortalContext();
   let { teams } = currentUser;
   const [CurrentTeams, setTeams] = useState<Teams[]>(teams);
@@ -53,7 +44,6 @@ const useTeamAdder = ({ setOpenModal }: Props) => {
 
   const handleDiscard = () => {
     handleReset();
-    setOpenModal(false);
     setTempoTeams([]);
   };
 
@@ -84,7 +74,6 @@ const useTeamAdder = ({ setOpenModal }: Props) => {
   const handleSave = () => {
     handleAddMoreMembers();
     setTempoTeams([]);
-    setOpenModal(false);
   };
 
   const handleRemove = (team: Teams) => {

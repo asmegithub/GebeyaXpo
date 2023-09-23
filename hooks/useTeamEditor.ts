@@ -4,22 +4,32 @@ import { FormikValues, useFormikContext } from "formik";
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {
-  setOpenModal: Dispatch<SetStateAction<boolean>>;
+  // setOpenModal: Dispatch<SetStateAction<boolean>>;
+  initialValues: FormikValues;
 };
 
-const useTeamEditor = ({ setOpenModal }: Props) => {
+const useTeamEditor = ({ initialValues }: Props) => {
   const { currentUser, setCurrentUser } = useExhibitorPortalContext();
-  const { dirty, isValid, values, handleReset, submitForm } =
-    useFormikContext<FormikValues>();
+  const { dirty, isValid, values, handleReset, submitForm, setValues } =
+    useFormikContext<FormikValues>(); // Use Teams here
   let { teams } = currentUser;
 
   const handleDiscard = () => {
-    handleReset();
-    setOpenModal(false);
+    setValues(initialValues);
   };
+
   const handleSave = (currentTeam: FormikValues) => {
-    submitForm();
-    setOpenModal(false);
+    const teamIndex = teams.findIndex((team) => team.id === currentTeam.id);
+
+    if (teamIndex !== -1) {
+      const updatedTeams = [...teams];
+
+      updatedTeams[teamIndex] = { ...updatedTeams[teamIndex], ...currentTeam }; // Merge the changes
+
+      setCurrentUser({ ...currentUser, teams: updatedTeams });
+
+      submitForm();
+    }
   };
 
   return {
