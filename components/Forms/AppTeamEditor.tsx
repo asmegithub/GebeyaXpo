@@ -1,6 +1,5 @@
 import { Teams } from "@/types/exhibitor";
 import React, { Dispatch, FC, SetStateAction } from "react";
-import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import IconButton from "@mui/joy/IconButton";
@@ -9,7 +8,7 @@ import Sheet from "@mui/joy/Sheet";
 import CloseIcon from "@mui/icons-material/Close";
 import { Field } from "@/types/register";
 import { FormikValues } from "formik";
-import { AppButton, AppFormField } from "..";
+import { AppButton, AppFormField, AppImageUploader } from "..";
 import { useTeamEditor } from "@/hooks";
 
 type Props = {
@@ -51,9 +50,7 @@ const AppTeamEditor: FC<Props> = ({
               </IconButton>
             </Box>
             <Divider />
-            <AspectRatio ratio="21/9">
-              <img alt="" src={team.image} />
-            </AspectRatio>
+            <AppImageUploader fieldName={"image"} imageUrl={team.image} />
 
             <Divider />
             <div className=" flex flex-col gap-2 mt-5">
@@ -69,10 +66,9 @@ const AppTeamEditor: FC<Props> = ({
               ))}
             </div>
 
-            
             <div className=" flex gap-5 mx-auto">
               <AppButton
-                label="Save"
+                label="Update"
                 handleAction={() => handleSave(values)}
                 disabled={!isValid || !dirty}
               />

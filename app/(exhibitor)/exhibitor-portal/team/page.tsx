@@ -77,14 +77,19 @@ const fields: Field[] = [
 
 const page = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const { currentUser, setCurrentUser } = useExhibitorPortalContext();
+  const {
+    currentUser,
+    setCurrentUser,
+    editing,
+    adding,
+    setAdding,
+    setEditing,
+  } = useExhibitorPortalContext();
   const [teamEditorModal, setTeamEditorModal] = useState<boolean>(false);
   const [editingTeam, setEditingTeam] = useState<FormikValues | null>(null);
   const { teams } = currentUser;
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [currentTeam, setCurrentTeam] = useState<Teams | null>(null);
-  const [editing, setEditing] = useState<boolean>(false);
-  const [adding, setAdding] = useState<boolean>(false);
 
   const open = Boolean(anchorEl);
 
@@ -101,9 +106,12 @@ const page = () => {
     if (team) {
       const newTeam = teams.filter((item) => item.id !== team.id);
       if (currentUser && newTeam) {
-        setCurrentUser({ ...currentUser, teams: newTeam });
+        setCurrentUser((currentUser) => ({ ...currentUser, teams: newTeam }));
       }
       handleClose();
+      if (editing) {
+        setEditing(false);
+      }
     }
   };
 
@@ -127,7 +135,7 @@ const page = () => {
 
   return (
     <div className="">
-      {teams.length == 0 && (
+      {teams.length == 0 && !adding && (
         <div className=" flex flex-col justify-center items-center h-screen">
           <div className="lg:w-[45%] w-[90%] md:w-[75%] mx-auto border-dashed border-2 h-[50vh] p-10 flex flex-col items-center justify-center">
             <h3 className=" text-base lg:text-2xl text-gray-400 font-bold">
@@ -136,7 +144,7 @@ const page = () => {
             <AppButton
               label={"Add A team Member"}
               handleAction={() => {
-                setOpenModal(true);
+                setAdding(true);
               }}
             />
           </div>
@@ -145,15 +153,13 @@ const page = () => {
       <div className=" mt-32 lg:mt-20  ml-5 w-[85%] xs:w-[65%] lg:w-[70%] xl:w-[77%] px-2 mx-auto md:ml-[280px] xs:ml-[165px] mr-5 h-[80vh] overflow-y-auto ">
         <div className=" flex justify-between sm:items-center mb-2 sm:flex-row flex-col w-[40%] sm:w-full ">
           <Typography level="h2">Teams</Typography>
-          {!openModal && (
-            <AppButton
-              label="Add New Member"
-              handleAction={() => {
-                setEditing(false);
-                setAdding(true);
-              }}
-            />
-          )}
+          <AppButton
+            label="Add New Member"
+            handleAction={() => {
+              setEditing(false);
+              setAdding(true);
+            }}
+          />
         </div>
         <AppForm
           initialValues={initialValues}

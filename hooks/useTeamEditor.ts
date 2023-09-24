@@ -1,21 +1,21 @@
 import { useExhibitorPortalContext } from "@/context/ExhibitorPortalContext";
-import { Teams } from "@/types/exhibitor";
 import { FormikValues, useFormikContext } from "formik";
-import { Dispatch, SetStateAction } from "react";
 
 type Props = {
-  // setOpenModal: Dispatch<SetStateAction<boolean>>;
   initialValues: FormikValues;
 };
 
 const useTeamEditor = ({ initialValues }: Props) => {
-  const { currentUser, setCurrentUser } = useExhibitorPortalContext();
+  const { currentUser, setCurrentUser, setEditing } =
+    useExhibitorPortalContext();
   const { dirty, isValid, values, handleReset, submitForm, setValues } =
     useFormikContext<FormikValues>(); // Use Teams here
   let { teams } = currentUser;
 
   const handleDiscard = () => {
     setValues(initialValues);
+    setEditing(false);
+    handleReset();
   };
 
   const handleSave = (currentTeam: FormikValues) => {
@@ -28,7 +28,10 @@ const useTeamEditor = ({ initialValues }: Props) => {
 
       setCurrentUser({ ...currentUser, teams: updatedTeams });
 
-      submitForm();
+      submitForm().then(() => {
+        setEditing(false);
+        handleReset();
+      });
     }
   };
 
